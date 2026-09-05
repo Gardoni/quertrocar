@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plataforma de Trocas e Avaliações</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🔄 EcoTroca</h1>
+    <p>Troque objetos e avalie a sua experiência com outros usuários!</p>
+  </header>
+
+  <main class="container">
+    <!-- Formulário para Cadastrar Usuário -->
+    <section class="card">
+      <h2>1. Cadastrar Usuário</h2>
+      <form id="form-usuario">
+        <input type="text" id="nome-usuario" placeholder="Nome do usuário" required>
+        <button type="submit">Cadastrar Usuário</button>
+      </form>
+      <ul id="lista-usuarios"></ul>
+    </section>
+
+    <!-- Formulário para Cadastrar Item -->
+    <section class="card">
+      <h2>2. Cadastrar Item para Troca</h2>
+      <form id="form-item">
+        <select id="select-dono" required>
+          <option value="">Selecione o dono do item</option>
+        </select>
+        <input type="text" id="nome-item" placeholder="Nome do objeto (ex: Livro, Bicicleta)" required>
+        <button type="submit">Cadastrar Item</button>
+      </form>
+    </section>
+
+    <!-- Realizar Troca -->
+    <section class="card">
+      <h2>3. Propor e Concluir Troca</h2>
+      <form id="form-troca">
+        <div class="field-group">
+          <label>Usuário 1 (Oferece):</label>
+          <select id="select-usuario-1" required></select>
+          <select id="select-item-1" required></select>
+        </div>
+        <div class="field-group">
+          <label>Usuário 2 (Oferece):</label>
+          <select id="select-usuario-2" required></select>
+          <select id="select-item-2" required></select>
+        </div>
+        <button type="submit" class="btn-troca">Realizar Troca</button>
+      </form>
+    </section>
+
+    <!-- Histórico de Trocas e Avaliações -->
+    <section class="card full-width">
+      <h2>4. Histórico de Trocas & Avaliar Usuários</h2>
+      <div id="historico-trocas"></div>
+    </section>
+  </main>
+
+  <!-- Modal para Avaliação -->
+  <div id="modal-avaliacao" class="modal hidden">
+    <div class="modal-content">
+      <h3>Avaliar Usuário</h3>
+      <p id="modal-descricao-troca"></p>
+      <form id="form-avaliacao">
+        <input type="hidden" id="troca-id">
+        <input type="hidden" id="avaliador-id">
+        <input type="hidden" id="avaliado-id">
+
+        <label id="lbl-avaliado"></label>
+        <div class="rating-stars">
+          <select id="nota-usuario" required>
+            <option value="5">⭐⭐⭐⭐⭐ (5 - Excelente)</option>
+            <option value="4">⭐⭐⭐⭐ (4 - Muito Bom)</option>
+            <option value="3">⭐⭐⭐ (3 - Regular)</option>
+            <option value="2">⭐⭐ (2 - Ruim)</option>
+            <option value="1">⭐ (1 - Péssimo)</option>
+          </select>
+        </div>
+        
+        <textarea id="comentario-usuario" placeholder="Escreva um comentário sobre a troca..." rows="3"></textarea>
+        <div class="modal-buttons">
+          <button type="submit">Enviar Avaliação</button>
+          <button type="button" id="btn-fechar-modal" class="btn-secondary">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
