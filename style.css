@@ -1,144 +1,306 @@
 * {
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
   background-color: #f4f6f8;
   color: #333;
-  padding: 20px;
+  line-height: 1.6;
 }
 
-header {
-  text-align: center;
-  margin-bottom: 25px;
+.hidden {
+  display: none !important;
 }
 
-header h1 {
-  color: #2c3e50;
-}
-
+/* CARDS E CONTAINERS */
 .container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-  max-width: 1000px;
-  margin: 0 auto;
+  max-width: 800px;
+  margin: 1.5rem auto;
+  padding: 0 1rem;
 }
 
 .card {
-  background: white;
-  padding: 20px;
+  background: #ffffff;
+  padding: 1.5rem;
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  margin-bottom: 1.5rem;
 }
 
-.full-width {
-  grid-column: 1 / -1;
-}
-
-h2 {
-  font-size: 1.2rem;
-  margin-bottom: 15px;
-  color: #34495e;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-input, select, textarea, button {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
-}
-
-button {
-  background-color: #27ae60;
-  color: white;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background 0.2s;
-}
-
-button:hover {
-  background-color: #219150;
-}
-
-.btn-troca {
-  background-color: #2980b9;
-}
-
-.btn-troca:hover {
-  background-color: #1f6391;
-}
-
-.btn-secondary {
-  background-color: #7f8c8d;
-}
-
-.field-group {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  background: #f8f9fa;
-  padding: 10px;
-  border-radius: 5px;
-}
-
-.user-badge {
-  display: inline-block;
-  background: #eef2f5;
-  padding: 6px 12px;
-  border-radius: 15px;
-  margin: 4px;
-  font-size: 0.9rem;
-}
-
-.troca-card {
-  border-left: 4px solid #27ae60;
-  background: #fdfdfd;
-  padding: 15px;
-  margin-bottom: 10px;
-  border-radius: 4px;
-}
-
-.troca-acoes {
-  margin-top: 10px;
-  display: flex;
-  gap: 10px;
-}
-
-/* Modal Styling */
-.modal {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.5);
+.auth-container {
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 100vh;
+  padding: 1rem;
 }
 
-.modal.hidden {
-  display: none;
+.auth-card {
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
 }
 
-.modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 400px;
+.auth-card h1 {
+  color: #2e7d32;
+  margin-bottom: 0.3rem;
 }
 
-.modal-buttons {
+/* FORMULÁRIOS E INPUTS */
+form {
   display: flex;
-  gap: 10px;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+input, select, button {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+}
+
+input:focus, select:focus {
+  border-color: #2e7d32;
+  outline: none;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.input-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+  color: #555;
+}
+
+/* BOTÕES */
+button {
+  background-color: #2e7d32;
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #1b5e20;
+}
+
+.btn-secundario {
+  background-color: #1976d2;
+}
+
+.btn-secundario:hover {
+  background-color: #0d47a1;
+}
+
+.btn-sair {
+  background-color: #d32f2f;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  width: auto;
+}
+
+.btn-sair:hover {
+  background-color: #b71c1c;
+}
+
+/* BOTÕES DE SELEÇÃO DE FOTO */
+.btn-foto-option {
+  display: block;
+  text-align: center;
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #a5d6a7;
+  padding: 0.6rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-foto-option:hover {
+  background-color: #c8e6c9;
+}
+
+.btn-foto-option.btn-arquivo {
+  background-color: #f5f5f5;
+  color: #555;
+  border-color: #ccc;
+}
+
+.btn-foto-option.btn-arquivo:hover {
+  background-color: #e0e0e0;
+}
+
+/* HEADER DO APP */
+header {
+  background-color: #ffffff;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+header h1 {
+  font-size: 1.4rem;
+  color: #2e7d32;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.saldo-box {
+  background: #e8f5e9;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  color: #2e7d32;
+  font-size: 0.9rem;
+}
+
+/* BADGES DO MURAL */
+.badge {
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: white;
+}
+
+.badge-oferta {
+  background-color: #2e7d32;
+}
+
+.badge-pedido {
+  background-color: #e65100;
+}
+
+/* CHAT E MENSAGENS */
+.msg-balao {
+  max-width: 80%;
+  padding: 0.5rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  line-height: 1.3;
+  margin-bottom: 0.3rem;
+  word-break: break-word;
+}
+
+.msg-enviada {
+  align-self: flex-end;
+  background-color: #d1e7dd;
+  color: #0f5132;
+  border-bottom-right-radius: 0;
+}
+
+.msg-recebida {
+  align-self: flex-start;
+  background-color: #ffffff;
+  color: #333;
+  border: 1px solid #ddd;
+  border-bottom-left-radius: 0;
+}
+
+/* MODAIS */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal-card {
+  background: white;
+  max-width: 550px;
+  width: 100%;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  max-height: 85vh;
+}
+
+.modal-card h2 {
+  color: #2e7d32;
+  margin-bottom: 1rem;
+}
+
+.termos-conteudo {
+  overflow-y: auto;
+  padding-right: 0.5rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #eee;
+  padding: 1rem;
+  border-radius: 6px;
+  background-color: #fafafa;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.termos-conteudo h3 {
+  color: #1b5e20;
+  font-size: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 0.3rem;
+}
+
+.termos-conteudo h3:first-child {
+  margin-top: 0;
+}
+
+.termos-conteudo ul {
+  padding-left: 1.2rem;
+  margin: 0.5rem 0;
+}
+
+.termos-conteudo li {
+  list-style-type: disc;
+}
+
+.modal-acoes {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn-aceitar {
+  background-color: #2e7d32;
+  flex: 2;
+}
+
+.btn-aceitar:hover {
+  background-color: #1b5e20;
+}
+
+.btn-recusar {
+  background-color: #c62828;
+  flex: 1;
+}
+
+.btn-recusar:hover {
+  background-color: #b71c1c;
 }
