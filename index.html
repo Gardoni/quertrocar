@@ -3,91 +3,267 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Plataforma de Trocas e Avaliações</title>
+  <title>Quer Trocar? - Rede de Trocas de Tempo e Objetos</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>🔄 EcoTroca</h1>
-    <p>Troque objetos e avalie a sua experiência com outros usuários!</p>
-  </header>
 
-  <main class="container">
-    <!-- Formulário para Cadastrar Usuário -->
-    <section class="card">
-      <h2>1. Cadastrar Usuário</h2>
-      <form id="form-usuario">
-        <input type="text" id="nome-usuario" placeholder="Nome do usuário" required>
-        <button type="submit">Cadastrar Usuário</button>
+  <!-- TELA 1: LOGIN E CADASTRO -->
+  <div id="tela-auth" class="auth-container">
+    <div class="card auth-card">
+      <h1>Quer Trocar?</h1>
+      <p>A sua rede de tempo, habilidades e desapegos.</p>
+      
+      <!-- Formulário de Login -->
+      <form id="form-login">
+        <h2>Entrar</h2>
+        <input type="text" id="login-usuario" placeholder="Seu Nome de Usuário (ou 'admin')" required>
+        <input type="password" id="login-senha" placeholder="Sua Senha" required>
+        <button type="submit">Entrar na Plataforma</button>
+        <a href="#" id="link-esqueci-senha" style="font-size: 0.85rem; color: #1976d2; margin-top: 0.4rem; text-decoration: none; display: inline-block;">Esqueceu sua senha?</a>
       </form>
-      <ul id="lista-usuarios"></ul>
-    </section>
 
-    <!-- Formulário para Cadastrar Item -->
-    <section class="card">
-      <h2>2. Cadastrar Item para Troca</h2>
-      <form id="form-item">
-        <select id="select-dono" required>
-          <option value="">Selecione o dono do item</option>
-        </select>
-        <input type="text" id="nome-item" placeholder="Nome do objeto (ex: Livro, Bicicleta)" required>
-        <button type="submit">Cadastrar Item</button>
-      </form>
-    </section>
+      <hr style="margin: 1.5rem 0;">
 
-    <!-- Realizar Troca -->
-    <section class="card">
-      <h2>3. Propor e Concluir Troca</h2>
-      <form id="form-troca">
-        <div class="field-group">
-          <label>Usuário 1 (Oferece):</label>
-          <select id="select-usuario-1" required></select>
-          <select id="select-item-1" required></select>
-        </div>
-        <div class="field-group">
-          <label>Usuário 2 (Oferece):</label>
-          <select id="select-usuario-2" required></select>
-          <select id="select-item-2" required></select>
-        </div>
-        <button type="submit" class="btn-troca">Realizar Troca</button>
-      </form>
-    </section>
-
-    <!-- Histórico de Trocas e Avaliações -->
-    <section class="card full-width">
-      <h2>4. Histórico de Trocas & Avaliar Usuários</h2>
-      <div id="historico-trocas"></div>
-    </section>
-  </main>
-
-  <!-- Modal para Avaliação -->
-  <div id="modal-avaliacao" class="modal hidden">
-    <div class="modal-content">
-      <h3>Avaliar Usuário</h3>
-      <p id="modal-descricao-troca"></p>
-      <form id="form-avaliacao">
-        <input type="hidden" id="troca-id">
-        <input type="hidden" id="avaliador-id">
-        <input type="hidden" id="avaliado-id">
-
-        <label id="lbl-avaliado"></label>
-        <div class="rating-stars">
-          <select id="nota-usuario" required>
-            <option value="5">⭐⭐⭐⭐⭐ (5 - Excelente)</option>
-            <option value="4">⭐⭐⭐⭐ (4 - Muito Bom)</option>
-            <option value="3">⭐⭐⭐ (3 - Regular)</option>
-            <option value="2">⭐⭐ (2 - Ruim)</option>
-            <option value="1">⭐ (1 - Péssimo)</option>
-          </select>
-        </div>
+      <!-- Formulário de Cadastro -->
+      <form id="form-cadastro">
+        <h2>Criar Conta (Ganha 2 Horas!)</h2>
+        <input type="text" id="cad-nome" placeholder="Seu Nome Completo" required>
+        <input type="text" id="cad-username" placeholder="Escolha um Usuário (Ex: joaosilva)" required>
+        <input type="tel" id="cad-celular" placeholder="WhatsApp para confirmação (DDD + Número)" required>
         
-        <textarea id="comentario-usuario" placeholder="Escreva um comentário sobre a troca..." rows="3"></textarea>
-        <div class="modal-buttons">
-          <button type="submit">Enviar Avaliação</button>
-          <button type="button" id="btn-fechar-modal" class="btn-secondary">Cancelar</button>
+        <!-- Opções de Foto -->
+        <div class="input-group" style="text-align: left; margin-top: 0.8rem;">
+          <label style="font-size: 0.85rem; font-weight: bold;">Foto do Rosto (Perfil):</label>
+          
+          <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.3rem;">
+            <label class="btn-foto-option">
+              📸 Tirar Foto Agora
+              <input type="file" id="cad-foto-camera" accept="image/*" capture="user" style="display: none;" onchange="atualizarNomeFoto(this)">
+            </label>
+
+            <label class="btn-foto-option btn-arquivo">
+              📁 Escolher da Galeria / Arquivos
+              <input type="file" id="cad-foto-arquivo" accept="image/*" style="display: none;" onchange="atualizarNomeFoto(this)">
+            </label>
+          </div>
+          
+          <span id="nome-foto-selecionada" style="font-size: 0.75rem; color: #2e7d32; margin-top: 4px; display: block; font-weight: bold;"></span>
         </div>
+
+        <!-- NOVO: Opção de Atestado de Bons Antecedentes (Opcional) -->
+        <div class="input-group" style="text-align: left; margin-top: 1rem; background: #f5f5f5; padding: 0.8rem; border-radius: 6px; border: 1px dashed #ccc;">
+          <label style="font-size: 0.85rem; font-weight: bold; color: #333; display: block; margin-bottom: 0.3rem;">
+            🛡️ Atestado de Bons Antecedentes (Opcional):
+          </label>
+          <p style="font-size: 0.75rem; color: #666; margin-bottom: 0.5rem;">
+            Adicionar seu atestado aumenta a confiança de outros membros na comunidade.
+          </p>
+          <label class="btn-foto-option btn-arquivo" style="background: #455a64; color: white;">
+            📄 Anexar Atestado (PDF ou Imagem)
+            <input type="file" id="cad-atestado-file" accept="image/*,application/pdf" style="display: none;" onchange="atualizarNomeAtestado(this)">
+          </label>
+          <span id="nome-atestado-selecionado" style="font-size: 0.75rem; color: #2e7d32; margin-top: 4px; display: block; font-weight: bold;"></span>
+        </div>
+
+        <input type="password" id="cad-senha" placeholder="Escolha uma Senha" required style="margin-top: 0.8rem;">
+        <button type="submit" class="btn-secundario">Receber Código no WhatsApp</button>
       </form>
+
+      <!-- Caixa de Confirmação (OTP - Cadastro) -->
+      <div id="box-confirmacao" class="hidden" style="margin-top: 1rem; background: #e8f5e9; padding: 1rem; border-radius: 6px;">
+        <p style="font-size: 0.9rem; color: #2e7d32; font-weight: bold;">Enviamos um código para o seu WhatsApp!</p>
+        <input type="text" id="input-codigo-otp" placeholder="Digite o código de 6 dígitos" style="margin-top: 0.5rem; text-align: center; font-size: 1.1rem; letter-spacing: 2px;">
+        <button id="btn-validar-codigo" type="button" style="margin-top: 0.5rem;">Validar Código</button>
+      </div>
     </div>
+  </div>
+
+  <!-- MODAL DE RECUPERAÇÃO DE SENHA -->
+  <div id="modal-recuperar-senha" class="modal-overlay hidden">
+    <div class="modal-card">
+      <h2>Recuperar Senha</h2>
+      
+      <div id="recuperar-passo-1">
+        <p style="font-size: 0.9rem; color: #555; margin-bottom: 1rem;">Digite o seu número de WhatsApp cadastrado para receber um código de validação.</p>
+        <input type="tel" id="rec-celular" placeholder="Ex: 31990841852" style="margin-bottom: 0.8rem;">
+        <div class="modal-acoes">
+          <button type="button" id="btn-enviar-codigo-rec" class="btn-aceitar">Enviar Código no WhatsApp</button>
+          <button type="button" id="btn-cancelar-rec" class="btn-recusar">Cancelar</button>
+        </div>
+      </div>
+
+      <div id="recuperar-passo-2" class="hidden">
+        <p style="font-size: 0.9rem; color: #2e7d32; font-weight: bold; margin-bottom: 0.5rem;">Código enviado com sucesso!</p>
+        <input type="text" id="rec-codigo-otp" placeholder="Código de 6 dígitos" style="text-align: center; font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 0.8rem;">
+        <input type="password" id="rec-nova-senha" placeholder="Digite sua NOVA Senha" style="margin-bottom: 0.8rem;">
+        
+        <div class="modal-acoes">
+          <button type="button" id="btn-salvar-nova-senha" class="btn-aceitar">Redefinir Senha</button>
+          <button type="button" id="btn-cancelar-rec-2" class="btn-recusar">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE TERMOS DE USO -->
+  <div id="modal-termos" class="modal-overlay hidden">
+    <div class="modal-card">
+      <h2>Termo de Uso e Regras de Convivência</h2>
+      <div class="termos-conteudo">
+        <h3>1. Sobre a Plataforma</h3>
+        <p>O <strong>Quer Trocar?</strong> é uma comunidade digital sem fins lucrativos focada na colaboração e na economia solidária de tempo e bens.</p>
+
+        <h3>2. O Modelo de Banco de Horas</h3>
+        <p>A moeda social da rede é a <strong>Hora</strong> (1 Hora = 1 Crédito). Todas as habilidades e bens são equivalentes sob a mesma métrica de tempo.</p>
+
+        <h3>3. Regras e Compromissos</h3>
+        <ul>
+          <li><strong>Compromisso Mínimo:</strong> Doar ao menos 1 hora por semana ou fazer trocas regulares.</li>
+          <li><strong>Transparência e Respeito:</strong> Anúncios devem ser fiéis ao que é oferecido.</li>
+          <li><strong>Segurança Pessoal:</strong> Responsabilidade direta dos participantes ao acertar horários e encontros presenciais.</li>
+        </ul>
+
+        <h3>4. Limite e Uso do Saldo</h3>
+        <p>É expressamente proibido comercializar ou tentar vender créditos de horas por dinheiro real.</p>
+      </div>
+
+      <div class="modal-acoes">
+        <button id="btn-aceitar-termos" class="btn-aceitar">Li e Aceito os Termos</button>
+        <button id="btn-recusar-termos" class="btn-recusar">Sair / Não Aceito</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TELA 2: PAINEL PRINCIPAL DO USUÁRIO -->
+  <div id="tela-app" class="hidden">
+    <header>
+      <div style="display: flex; align-items: center; gap: 0.8rem;">
+        <div style="position: relative; display: inline-block;">
+          <img id="foto-usuario-header" src="" alt="Foto de Perfil" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid #a5d6a7; background-color: #eee; display: block;">
+          <label for="trocar-foto-input" title="Trocar Foto de Perfil" style="position: absolute; bottom: -2px; right: -2px; background: #2e7d32; color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; cursor: pointer; border: 1px solid white;">📷</label>
+          <input type="file" id="trocar-foto-input" accept="image/*" style="display: none;" onchange="alterarFotoPerfil(this)">
+        </div>
+        <h1>Quer Trocar?</h1>
+      </div>
+      <div class="user-info">
+        <span>Olá, <strong id="nome-usuario-logado">Usuário</strong> (<span id="user-username-tag">@username</span>)!</span>
+        
+        <!-- Selo do Atestado no Perfil se enviado -->
+        <span id="selo-antecedentes-perfil" style="font-size: 0.75rem; background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; padding: 2px 6px; border-radius: 12px; font-weight: bold; display: none;">
+          🛡️ Antecedentes Verificados
+        </span>
+
+        <div class="saldo-box">
+          <span>Saldo:</span> <strong id="saldo-usuario">0.0</strong> Horas
+        </div>
+        <button id="btn-logout" class="btn-sair">Sair</button>
+      </div>
+    </header>
+
+    <main class="container">
+      
+      <!-- PAINEL EXCLUSIVO DE ADMINISTRAÇÃO -->
+      <section id="painel-admin" class="card hidden" style="border: 2px solid #c62828; background-color: #fff8f8;">
+        <h2 style="color: #c62828;">⚙️ Painel do Administrador</h2>
+        <p style="font-size: 0.85rem; color: #555; margin-bottom: 1rem;">Gerencie os usuários cadastrados e verifique documentos anexados.</p>
+        <ul id="lista-usuarios-admin" style="list-style: none; padding: 0;"></ul>
+      </section>
+
+      <!-- SEÇÃO DE MENSAGENS / CHAT DIRETO -->
+      <section id="secao-chat" class="card" style="border: 1px solid #a5d6a7;">
+        <h2>💬 Minhas Mensagens & Negociações</h2>
+        <div class="chat-wrapper" style="display: flex; gap: 1rem; min-height: 250px; margin-top: 1rem;">
+          
+          <div style="width: 35%; border-right: 1fr solid #eee; padding-right: 0.5rem; overflow-y: auto;">
+            <strong style="font-size: 0.85rem; color: #666; display: block; margin-bottom: 0.5rem;">Conversas Ativas:</strong>
+            <ul id="lista-conversas" style="list-style: none; padding: 0;">
+              <li style="font-size: 0.8rem; color: #888;">Nenhuma conversa iniciada.</li>
+            </ul>
+          </div>
+
+          <div style="width: 65%; display: flex; flex-direction: column; justify-content: space-between;">
+            <div id="chat-cabecalho" style="font-weight: bold; font-size: 0.9rem; color: #2e7d32; padding-bottom: 0.5rem; border-bottom: 1px solid #eee; margin-bottom: 0.5rem;">
+              Selecione uma conversa ao lado ou clique em "Enviar Mensagem" em um anúncio.
+            </div>
+
+            <div id="chat-mensagens-box" style="flex-grow: 1; max-height: 200px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.5rem; padding: 0.5rem; background: #fafafa; border-radius: 6px; border: 1px solid #f0f0f0;">
+            </div>
+
+            <form id="form-enviar-mensagem" style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+              <input type="text" id="input-chat-texto" placeholder="Digite sua mensagem..." disabled required style="flex-grow: 1;">
+              <button type="submit" id="btn-chat-enviar" disabled style="width: auto; padding: 0.5rem 1rem;">Enviar</button>
+            </form>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Seção: Publicar / Editar Oferta ou Pedido -->
+      <section class="card" id="secao-form-post">
+        <h2 id="titulo-form-post">O que você quer divulgar hoje?</h2>
+        <form id="form-publicacao">
+          <input type="hidden" id="edit-post-id" value="">
+
+          <div class="input-group">
+            <label for="tipo-post">Tipo de Anúncio:</label>
+            <select id="tipo-post" required>
+              <option value="Oferta">OFERTA (Eu posso fazer / Eu tenho)</option>
+              <option value="Pedido">PEDIDO (Estou precisando de ajuda)</option>
+            </select>
+          </div>
+          
+          <div class="input-group">
+            <label for="titulo-post">Título do Trabalho/Item:</label>
+            <input type="text" id="titulo-post" placeholder="Ex: Aula de Inglês Básica / Pintura de Portão" required>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+            <div class="input-group">
+              <label for="dia-post">Dia Disponível:</label>
+              <input type="text" id="dia-post" placeholder="Ex: Sábados / Flexível" required>
+            </div>
+            <div class="input-group">
+              <label for="horario-post">Horário Disponível:</label>
+              <input type="text" id="horario-post" placeholder="Ex: 09:00 às 12:00" required>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label for="horas-post">Estimativa de Horas:</label>
+            <input type="number" id="horas-post" step="0.5" min="0.5" placeholder="Ex: 1.5" required>
+          </div>
+          
+          <div style="display: flex; gap: 0.5rem;">
+            <button type="submit" id="btn-salvar-post">Publicar no Mural</button>
+            <button type="button" id="btn-cancelar-edit" class="hidden" style="background: #757575;">Cancelar Edição</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Seção: Mural da Comunidade -->
+      <section class="card">
+        <h2>Mural da Comunidade</h2>
+        <ul id="mural-lista"></ul>
+      </section>
+
+      <!-- Seção: Transferência de Horas -->
+      <section class="card">
+        <h2>Pagar/Transferir Horas por um Serviço</h2>
+        <form id="form-transferencia">
+          <div class="input-group">
+            <label for="destinatario-username">Usuário do Destinatário:</label>
+            <input type="text" id="destinatario-username" placeholder="Ex: joaosilva" required>
+          </div>
+          <div class="input-group">
+            <label for="horas-transf">Quantidade de Horas:</label>
+            <input type="number" id="horas-transf" step="0.5" min="0.5" placeholder="Ex: 1.0" required>
+          </div>
+          <button type="submit" class="btn-secundario">Transferir Horas</button>
+        </form>
+      </section>
+
+    </main>
   </div>
 
   <script src="script.js"></script>
